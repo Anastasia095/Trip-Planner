@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Trip;
+use App\Models\Flight;
+use App\Models\Accommodation;
+use App\Models\Directions;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class TripController extends Controller
 {
@@ -14,10 +19,67 @@ class TripController extends Controller
         return view('trips.index');
     }
 
-    public function create()
+    public function new()
     {
         return view('trips.create');
     }
+
+    public function create(Request $request)
+    {
+
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'origin' => 'required|string|max:255',
+            'destination' => 'required|string|max:255',
+            'distance' => 'required|numeric|min:0',
+            'vehicle_mpg' => 'required|numeric|min:1',
+            'travel_time' => 'nullable|string|max:255',
+            'departure' => 'required|string|max:255',
+            'arrival' => 'required|string|max:255',
+            'airline' => 'required|string|max:255',
+            'flight_number' => 'required|string|max:255',
+            'departure_time' => 'required|date',
+            'arrival_time' => 'required|date|after_or_equal:departure_time',
+            'hotel_name' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'check_in' => 'required|date',
+            'check_out' => 'required|date|after_or_equal:check_in',
+            'room_type' => 'required|string|max:255',
+        ]);
+        $directions = Directions::create([
+            'origin' => $validated['origin'],
+            'destination' => $validated['destination'],
+            'distance' => $validated['distance'],
+            'vehicle_mpg' => $validated['vehicle_mpg'],
+            'travel_time' => $validated['travel_time'],
+        ]);
+
+        $flight = Flight::create([
+            'departure' => $validated['departure'],
+            'arrival' => $validated['arrival'],
+            'airline' => $validated['airline'],
+            'flight_number' => $validated['flight_number'],
+            'departure_time' => $validated['departure_time'],
+            'arrival_time' => $validated['arrival_time'],
+        ]);
+
+        $accommodation = Accommodation::create([
+            'hotel_name' => $validated['hotel_name'],
+            'address' => $validated['address'],
+            'check_in' => $validated['check_in'],
+            'check_out' => $validated['check_out'],
+        ]);
+
+        Trip::create([
+            'title' => $validated['title'],
+            'flight_id' => $flight->id,
+            'accommodation_id' => $accommodation->id,
+            'directions_id' => $directions->id,
+        ]);
+
+        return redirect()->route('trips.index')->with('success', 'Trip created successfully!');
+    }
+
 
     // public function show($id)
     public function show()
