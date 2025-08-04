@@ -7,4 +7,4 @@ Route::get('/', [TripController::class, 'index'])->name('trips.index');
 Route::get('/trips/new', [TripController::class, 'new'])->name('trips.new');
 Route::post('/trips/create', [TripController::class, 'create'])->name('trips.create');
 // Route::get('/trip/{id}', [TripController::class, 'show'])->name('trips.show');
-Route::get('/trip', [TripController::class, 'show'])->name('trips.show');
+Route::get('/trips/{trip}', [TripController::class, 'show'])->name('trips.show');

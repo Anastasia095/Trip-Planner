@@ -89,11 +89,10 @@ class TripController extends Controller
     }
 
 
-    // public function show($id)
-    public function show()
+    public function show($id)
     {
-        // $trip = Trip::findOrFail($id);
-        // return view('tripdetails.blade', compact('trip'));
-        return view('trips.show');
+        $trip = Trip::findOrFail($id);
+        $fuel = $trip->directions->distance / $trip->directions->vehicle_mpg;
+        return view('trips.show', compact('trip', 'fuel'));
     }
 }
