@@ -33,7 +33,7 @@
             <!-- Create Trip Button -->
             <section id="create-trip-section" aria-labelledby="create-trip-heading" class="relative w-full before:absolute before:top-0 before:h-px before:w-[200vw] before:bg-gray-950/5 dark:before:bg-white/10 before:-left-[100vw] after:absolute after:bottom-0 after:h-px after:w-[200vw] after:bg-gray-950/5 dark:after:bg-white/10 after:-left-[100vw] dark:bg-gray-950 rounded-xl p-4 sm:p-6">
                 <h2 id="create-trip-heading" class="text-lg sm:text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Plan Your Next Adventure</h2>
-                <a href="#" class="inline-block bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900 px-4 py-2 rounded-lg shadow hover:bg-gray-800 dark:hover:bg-gray-200 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500" aria-label="Create a new trip">Create New Trip</a>
+                <a href="{{ route('trips.create') }} class=" inline-block bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900 px-4 py-2 rounded-lg shadow hover:bg-gray-800 dark:hover:bg-gray-200 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500" aria-label="Create a new trip">Create New Trip</a>
             </section>
 
             <!-- Trip Cards -->

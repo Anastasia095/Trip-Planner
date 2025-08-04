@@ -32,12 +32,12 @@
         <main class="col-start-3 row-start-3 flex flex-col bg-gray-100 p-4 sm:p-6 rounded-xl shadow-lg dark:bg-gray-950">
             <!-- Block 1 -->
             <section id="map-section" aria-labelledby="map-heading" class="relative w-full before:absolute before:top-0 before:h-px before:w-[200vw] before:bg-gray-950/5 dark:before:bg-white/10 before:-left-[100vw] after:absolute after:bottom-0 after:h-px after:w-[200vw] after:bg-gray-950/5 dark:after:bg-white/10 after:-left-[100vw] dark:bg-gray-950 rounded-xl p-4 sm:p-6">
-                <h2 id="map-heading" class="text-lg sm:text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Orlando to Gatlinburg</h2>
+                <h2 id="map-heading" class="text-lg sm:text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Orlando to Cades Cove</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full">
                     <div class="flex flex-col justify-center text-gray-900 dark:text-gray-100 space-y-3">
                         <p class="text-base sm:text-lg"><strong>Distance:</strong> 435 miles</p>
                         <p class="text-base sm:text-lg"><strong>Travel Time:</strong> 6 hours 30 minutes</p>
-                        <p class="text-base sm:text-lg"><strong>Gas with this much MPG:</strong> 15 gallons</p>
+                        <p class="text-base sm:text-lg"><strong>Fuel Required:</strong> 15 gal</p>
                     </div>
                     <div class="sm:col-span-2 w-full h-48 sm:h-64 rounded overflow-hidden shadow-sm">
                         <iframe
