@@ -49,9 +49,7 @@
                     <article class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 flex flex-col" aria-labelledby="trip-{{ $trip->id }}-heading">
                         <h3 id="trip-{{ $trip->id }}-heading" class="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100">{{ $trip->title }}</h3>
                         <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1 text-sm sm:text-base mt-2 flex-grow">
-                            <li><strong>Destination:</strong> {{ $trip->destination }}</li>
-                            <li><strong>Start Date:</strong> {{ $trip->start_date->format('M d, Y') }}</li>
-                            <li><strong>End Date:</strong> {{ $trip->end_date->format('M d, Y') }}</li>
+                            <li><strong>{{ $trip->title }}</strong> </li>
                         </ul>
                         <a href="{{ route('trips.show', $trip->id) }}" class="mt-4 inline-block bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900 px-4 py-2 rounded-lg shadow hover:bg-gray-800 dark:hover:bg-gray-200 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500" aria-label="View details for {{ $trip->title }}">View Trip Details</a>
                     </article>

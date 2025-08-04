@@ -14,9 +14,8 @@ class TripController extends Controller
 {
     public function index()
     {
-        // $trips = Trip::all();
-        // return view('index', compact('trips'));
-        return view('trips.index');
+        $trips = Trip::all();
+        return view('trips.index', compact('trips'));
     }
 
     public function new()
@@ -26,7 +25,6 @@ class TripController extends Controller
 
     public function create(Request $request)
     {
-
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'origin' => 'required|string|max:255',
@@ -43,9 +41,9 @@ class TripController extends Controller
             'hotel_name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'check_in' => 'required|date',
-            'check_out' => 'required|date|after_or_equal:check_in',
-            'room_type' => 'required|string|max:255',
+            'check_out' => 'required|date|after_or_equal:check_in'
         ]);
+
         $directions = Directions::create([
             'origin' => $validated['origin'],
             'destination' => $validated['destination'],
@@ -53,7 +51,9 @@ class TripController extends Controller
             'vehicle_mpg' => $validated['vehicle_mpg'],
             'travel_time' => $validated['travel_time'],
         ]);
-
+        if (!$directions) {
+            dd("trip failed to save");
+        }
         $flight = Flight::create([
             'departure' => $validated['departure'],
             'arrival' => $validated['arrival'],
@@ -62,20 +62,28 @@ class TripController extends Controller
             'departure_time' => $validated['departure_time'],
             'arrival_time' => $validated['arrival_time'],
         ]);
-
+        if (!$flight) {
+            dd("trip failed to save");
+        }
         $accommodation = Accommodation::create([
             'hotel_name' => $validated['hotel_name'],
             'address' => $validated['address'],
             'check_in' => $validated['check_in'],
             'check_out' => $validated['check_out'],
         ]);
-
-        Trip::create([
+        if (!$accommodation) {
+            dd("trip failed to save");
+        }
+        $trip = Trip::create([
             'title' => $validated['title'],
             'flight_id' => $flight->id,
             'accommodation_id' => $accommodation->id,
             'directions_id' => $directions->id,
         ]);
+
+        if (!$trip) {
+            dd("trip failed to save");
+        }
 
         return redirect()->route('trips.index')->with('success', 'Trip created successfully!');
     }
