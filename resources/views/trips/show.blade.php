@@ -19,7 +19,7 @@
     @endif
 </head>
 
-<body class="w-full">
+<body class="w-full overflow-x-hidden">
     <div class="fixed inset-x-0 top-0 z-10 border-b border-black/5 dark:border-white/10" bis_skin_checked="1">
         <div class="bg-white dark:bg-gray-950" bis_skin_checked="1">
             <div class="flex h-14 items-center justify-between gap-8 px-4 sm:px-6" bis_skin_checked="1">

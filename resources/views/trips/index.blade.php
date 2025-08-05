@@ -17,8 +17,18 @@
     @endif
 </head>
 
-<body class="w-full">
-    <div class="relative grid min-h-screen grid-cols-[0.5rem_0.5rem_1fr_0.5rem_0.5rem] sm:grid-cols-[1fr_2.5rem_3fr_2.5rem_1fr] grid-rows-[1fr_1px_auto_1px_1fr] bg-white [--pattern-fg:var(--color-gray-950)]/5 dark:bg-gray-950 dark:[--pattern-fg:var(--color-white)]/10">
+<body class="w-full overflow-x-hidden">
+    <div
+        class="relative grid min-h-screen
+         grid-cols-[0.5rem_0.5rem_1fr_0.5rem_0.5rem]
+         sm:grid-cols-[1fr_2.5rem_3fr_2.5rem_1fr]
+         grid-rows-[1fr_1px_auto_1px_1fr]
+         bg-white [--pattern-fg:var(--color-gray-950)]/5
+         dark:bg-gray-950
+         dark:[--pattern-fg:var(--color-white)]/10
+         max-w-full
+         overflow-hidden">
+
 
         <header class="col-start-3 col-span-1 row-start-1 flex items-center justify-center pt-2">
             <h1 class="px-2 text-3xl sm:text-4xl md:text-5hodxl lg:text-6xl xl:text-8xl tracking-tighter text-balance font-medium text-gray-900 dark:text-gray-100">

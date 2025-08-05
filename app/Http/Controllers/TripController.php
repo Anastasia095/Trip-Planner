@@ -42,25 +42,31 @@ class TripController extends Controller
             'check_out' => 'required|date|after_or_equal:check_in'
         ]);
 
-        // Call Google Distance Matrix API
-        $response = Http::get('https://maps.googleapis.com/maps/api/distancematrix/json', [
-            'units' => 'imperial',
-            'origins' => $validated['origin'],
-            'destinations' => $validated['destination'],
-            'key' => config('services.google_maps.key'),
+
+
+        $apiKey = config('services.google_maps.key'); // stored in .env
+
+        $response = Http::withHeaders([
+            'Content-Type' => 'application/json',
+            'X-Goog-Api-Key' => $apiKey,
+            'X-Goog-FieldMask' => 'routes.duration,routes.distanceMeters'
+        ])->post('https://routes.googleapis.com/directions/v2:computeRoutes', [
+            'origin' => [
+                'address' =>  $validated['origin'],
+            ],
+            'destination' => [
+                'address' => $validated['destination'],
+            ],
         ]);
 
-        $distance = null;
-        $duration = null;
+        $data = $response->json();
+        $meters = $response['routes'][0]['distanceMeters'];
+        $miles = $meters * 0.000621371;
 
-        if ($response->successful()) {
-            $data = $response->json();
-            $element = $data['rows'][0]['elements'][0] ?? null;
-
-            if ($element && $element['status'] === 'OK') {
-                $distance = $element['distance']['text'];
-                $duration = $element['duration']['text'];
-            }
+        if (!empty($data['routes'][0])) {
+            $route = $data['routes'][0];
+            $distance = $miles ?? 0;
+            $duration = $route['duration'] ?? 0;
         }
 
         // Save to directions table
