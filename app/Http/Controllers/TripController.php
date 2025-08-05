@@ -44,7 +44,7 @@ class TripController extends Controller
 
 
 
-        $apiKey = config('services.google_maps.key'); // stored in .env
+        $apiKey = config('services.google_maps.key');
 
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
@@ -68,8 +68,6 @@ class TripController extends Controller
             $distance = $miles ?? 0;
             $duration = $route['duration'] ?? 0;
         }
-
-        // Save to directions table
         $directions = Directions::create([
             'origin' => $validated['origin'],
             'destination' => $validated['destination'],
@@ -100,11 +98,24 @@ class TripController extends Controller
         if (!$accommodation) {
             dd("trip failed to save");
         }
+
+        //just for decoration purposes
+        $imageUrls = [
+            "https://www.pinkadventuretours.com/Media/3120/roaring-fork-motor-trail-fall-cabin-600x400.jpg",
+            "https://cdn2.smokymountains.com/uploads/2020/08/leaf-peeping-scenic-drive_731x419_acf_cropped.jpg",
+            "https://wildlandtrekking.com/content/webp-express/webp-images/doc-root/content/uploads/2020/11/smokies-bg.jpg.webp",
+            "https://www.myinnontheriver.com/media/66a83b56c0213bb358b642b0/xlarge.webp",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5WUCkPjG1y6MNp22n5st6maCuArGYXsvQmw&s",
+        ];
+
+        $image_url = $imageUrls[array_rand($imageUrls)];
+        // dd($image_url);
         $trip = Trip::create([
             'title' => $validated['title'],
             'flight_id' => $flight->id,
             'accommodation_id' => $accommodation->id,
             'directions_id' => $directions->id,
+            'image_url' => $image_url
         ]);
 
         if (!$trip) {

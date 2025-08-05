@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>Trip Details</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -66,14 +66,10 @@
     <div
         class="relative grid min-h-screen grid-cols-[0.5rem_0.5rem_1fr_0.5rem_0.5rem] sm:grid-cols-[1fr_2.5rem_5fr_2.5rem_1fr]
 grid-rows-[1fr_1px_auto_1px_1fr] bg-white [--pattern-fg:var(--color-gray-950)]/5 dark:bg-gray-950 dark:[--pattern-fg:var(--color-white)]/10">
-        <!-- Header -->
         <header class="col-start-3 col-span-1 row-start-1 flex items-center justify-center mt-15 pt-2">
         </header>
-
-        <!-- Content Container -->
         <main
             class="col-start-3 row-start-3 flex flex-col bg-gray-100 p-4 sm:p-6 rounded-xl shadow-lg dark:bg-gray-950">
-            <!-- Block 1 -->
             <section id="map-section" aria-labelledby="map-heading"
                 class="relative w-full before:absolute before:top-0 before:h-px before:w-[200vw] before:bg-gray-950/5 dark:before:bg-white/10 before:-left-[100vw] after:absolute after:bottom-0 after:h-px after:w-[200vw] after:bg-gray-950/5 dark:after:bg-white/10 after:-left-[100vw] dark:bg-gray-950 rounded-xl p-4 sm:p-6">
                 <h2 id="map-heading" class="text-lg sm:text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">{{
@@ -98,8 +94,6 @@ grid-rows-[1fr_1px_auto_1px_1fr] bg-white [--pattern-fg:var(--color-gray-950)]/5
                     </div>
                 </div>
             </section>
-
-            <!-- Block 2 -->
             <section id="flight-section" aria-labelledby="flight-heading"
                 class="mt-6 relative w-full before:absolute before:top-0 before:h-px before:w-[200vw] before:bg-gray-950/5 dark:before:bg-white/10 before:-left-[100vw] after:absolute after:bottom-0 after:h-px after:w-[200vw] after:bg-gray-950/5 dark:after:bg-white/10 after:-left-[100vw] dark:bg-gray-950 rounded-xl p-4 sm:p-6">
                 <h2 id="flight-heading" class="text-lg sm:text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">
@@ -118,8 +112,6 @@ grid-rows-[1fr_1px_auto_1px_1fr] bg-white [--pattern-fg:var(--color-gray-950)]/5
                         aria-label="View flight ticket PDF">View Flight Ticket PDF</a>
                 </div>
             </section>
-
-            <!-- Block 3 -->
             <section id="accommodation-section" aria-labelledby="accommodation-heading"
                 class="mt-6 relative w-full before:absolute before:top-0 before:h-px before:w-[200vw] before:bg-gray-950/5 dark:before:bg-white/10 before:-left-[100vw] after:absolute after:bottom-0 after:h-px after:w-[200vw] after:bg-gray-950/5 dark:after:bg-white/10 after:-left-[100vw] dark:bg-gray-950 rounded-xl p-4 sm:p-6">
                 <h2 id="accommodation-heading"
