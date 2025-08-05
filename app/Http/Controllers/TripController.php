@@ -7,7 +7,7 @@ use App\Models\Flight;
 use App\Models\Accommodation;
 use App\Models\Directions;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 
 class TripController extends Controller
@@ -29,9 +29,7 @@ class TripController extends Controller
             'title' => 'required|string|max:255',
             'origin' => 'required|string|max:255',
             'destination' => 'required|string|max:255',
-            'distance' => 'required|numeric|min:0',
             'vehicle_mpg' => 'required|numeric|min:1',
-            'travel_time' => 'nullable|string|max:255',
             'departure' => 'required|string|max:255',
             'arrival' => 'required|string|max:255',
             'airline' => 'required|string|max:255',
@@ -44,12 +42,34 @@ class TripController extends Controller
             'check_out' => 'required|date|after_or_equal:check_in'
         ]);
 
+        // Call Google Distance Matrix API
+        $response = Http::get('https://maps.googleapis.com/maps/api/distancematrix/json', [
+            'units' => 'imperial',
+            'origins' => $validated['origin'],
+            'destinations' => $validated['destination'],
+            'key' => config('services.google_maps.key'),
+        ]);
+
+        $distance = null;
+        $duration = null;
+
+        if ($response->successful()) {
+            $data = $response->json();
+            $element = $data['rows'][0]['elements'][0] ?? null;
+
+            if ($element && $element['status'] === 'OK') {
+                $distance = $element['distance']['text'];
+                $duration = $element['duration']['text'];
+            }
+        }
+
+        // Save to directions table
         $directions = Directions::create([
             'origin' => $validated['origin'],
             'destination' => $validated['destination'],
-            'distance' => $validated['distance'],
+            'distance' => $distance,
             'vehicle_mpg' => $validated['vehicle_mpg'],
-            'travel_time' => $validated['travel_time'],
+            'travel_time' => $duration,
         ]);
         if (!$directions) {
             dd("trip failed to save");

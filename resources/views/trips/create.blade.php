@@ -51,24 +51,10 @@
                         @enderror
                     </div>
                     <div class="mb-4">
-                        <label for="distance" class="block text-base sm:text-lg text-gray-900 dark:text-gray-100">Distance (miles)</label>
-                        <input type="number" id="distance" name="distance" value="{{ old('distance') }}" step="0.1" class="w-full rounded p-2 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-gray-500" required aria-describedby="distance-error">
-                        @error('distance')
-                        <p id="distance-error" class="text-sm text-red-600 dark:text-red-400 mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div class="mb-4">
                         <label for="vehicle_mpg" class="block text-base sm:text-lg text-gray-900 dark:text-gray-100">Vehicle MPG</label>
                         <input type="number" id="vehicle_mpg" name="vehicle_mpg" value="{{ old('vehicle_mpg') }}" step="0.1" class="w-full rounded p-2 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-gray-500" required aria-describedby="vehicle_mpg-error">
                         @error('vehicle_mpg')
                         <p id="vehicle_mpg-error" class="text-sm text-red-600 dark:text-red-400 mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div class="mb-4">
-                        <label for="travel_time" class="block text-base sm:text-lg text-gray-900 dark:text-gray-100">Travel Time (e.g., 6 hours 30 minutes)</label>
-                        <input type="text" id="travel_time" name="travel_time" value="{{ old('travel_time') }}" class="w-full rounded p-2 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-gray-500" aria-describedby="travel_time-error">
-                        @error('travel_time')
-                        <p id="travel_time-error" class="text-sm text-red-600 dark:text-red-400 mt-1">{{ $message }}</p>
                         @enderror
                     </div>
 
