@@ -7,14 +7,16 @@
     <title>Create Trip - Trip Planner</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="w-full">
+<body class="w-full overflow-x-hidden">
     <div class="relative grid min-h-screen grid-cols-[0.5rem_0.5rem_1fr_0.5rem_0.5rem] sm:grid-cols-[1fr_2.5rem_3fr_2.5rem_1fr] grid-rows-[1fr_1px_auto_1px_1fr] bg-white [--pattern-fg:var(--color-gray-950)]/5 dark:bg-gray-950 dark:[--pattern-fg:var(--color-white)]/10">
         <!-- Header -->
-        <header class="col-start-3 col-span-1 row-start-1 flex items-center justify-center pt-2">
-            <h1 class="px-2 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-8xl tracking-tighter text-balance font-medium text-gray-900 dark:text-gray-100">
+        <header class="col-start-3 col-span-1 row-start-1 flex items-center justify-center pt-3 text-gray-900 dark:text-gray-100">
+            <i class="fa-solid fa-route fa-2x"></i> <!-- Added fa-2x for larger icon size -->
+            <h1 class="px-2 text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl tracking-tighter text-balance font-medium text-gray-900 dark:text-gray-100">
                 Create Trip
             </h1>
         </header>
@@ -90,14 +92,19 @@
                     </div>
                     <div class="mb-4">
                         <label for="departure_time" class="block text-base sm:text-lg text-gray-900 dark:text-gray-100">Departure Time</label>
-                        <input type="datetime-local" id="departure_time" name="departure_time" value="{{ old('departure_time') }}" class="w-full rounded p-2 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-gray-500" required aria-describedby="departure_time-error">
+                        <input type="text" id="departure_time" name="departure_time" value="{{ old('departure_time') }}"
+                            class="w-full rounded p-2 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-gray-500"
+                            required aria-describedby="departure_time-error">
                         @error('departure_time')
                         <p id="departure_time-error" class="text-sm text-red-600 dark:text-red-400 mt-1">{{ $message }}</p>
                         @enderror
                     </div>
+
                     <div class="mb-4">
                         <label for="arrival_time" class="block text-base sm:text-lg text-gray-900 dark:text-gray-100">Arrival Time</label>
-                        <input type="datetime-local" id="arrival_time" name="arrival_time" value="{{ old('arrival_time') }}" class="w-full rounded p-2 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-gray-500" required aria-describedby="arrival_time-error">
+                        <input type="text" id="arrival_time" name="arrival_time" value="{{ old('arrival_time') }}"
+                            class="w-full rounded p-2 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-gray-500"
+                            required aria-describedby="arrival_time-error">
                         @error('arrival_time')
                         <p id="arrival_time-error" class="text-sm text-red-600 dark:text-red-400 mt-1">{{ $message }}</p>
                         @enderror
@@ -146,3 +153,20 @@
 </body>
 
 </html>
+<script src="https://kit.fontawesome.com/f64d99a414.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+    flatpickr("#departure_time", {
+        enableTime: true,
+        dateFormat: "Y-m-d H:i",
+        altInput: true,
+        altFormat: "F j, Y h:i K",
+    });
+
+    flatpickr("#arrival_time", {
+        enableTime: true,
+        dateFormat: "Y-m-d H:i",
+        altInput: true,
+        altFormat: "F j, Y h:i K",
+    });
+</script>

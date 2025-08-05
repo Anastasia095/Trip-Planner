@@ -57,7 +57,7 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     @foreach ($trips as $trip)
                     <article class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 flex flex-col relative" aria-labelledby="trip-{{ $trip->id }}-heading"
-                        style="background-image: url('https://experiencecadescove.com/media/66e9dc561f28818ddd70cdb9/original.webp'); background-size: cover; background-position: center;">
+                        style="background-image: url('{{ $trip->image_url }}'); background-size: cover; background-position: center;">
                         <div class="absolute inset-0 bg-gray-700 opacity-50 rounded-lg z-0"></div>
                         <div class="relative z-10 flex flex-col h-full">
                             <h3 id="trip-{{ $trip->id }}-heading" class="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100">{{ $trip->title }}</h3>

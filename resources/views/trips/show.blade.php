@@ -109,8 +109,8 @@ grid-rows-[1fr_1px_auto_1px_1fr] bg-white [--pattern-fg:var(--color-gray-950)]/5
                     <li><i class="fa-solid fa-plane-arrival"></i> Arrival: {{$trip->flight->arrival}}</li>
                     <li>Airline: {{$trip->flight->airline}}</li>
                     <li>Flight Number: {{$trip->flight->flight_number}}</li>
-                    <li>Departure Time: {{$trip->flight->departure_time}}</li>
-                    <li>Arrival Time: {{$trip->flight->arrival_time}}</li>
+                    <li>Departure Time: {{ date('M j, Y, g:i A', strtotime($trip->flight->departure_time)) }}</li>
+                    <li>Arrival Time: {{ date('M j, Y, g:i A', strtotime($trip->flight->arrival_time)) }}</li>
                 </ul>
                 <div class="mt-4">
                     <a href="/storage/pdfs/flight_ticket.pdf" target="_blank"
