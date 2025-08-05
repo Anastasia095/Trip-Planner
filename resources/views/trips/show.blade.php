@@ -134,8 +134,8 @@ grid-rows-[1fr_1px_auto_1px_1fr] bg-white [--pattern-fg:var(--color-gray-950)]/5
                         </a>
                     </li>
 
-                    <li>Check-in: {{ $trip->accommodation->check_in }}</li>
-                    <li>Check-out: {{ $trip->accommodation->check_out }}</li>
+                    <li>Check-in: {{ date('M j, Y, g:i A', strtotime($trip->accommodation->check_in )) }}</li>
+                    <li>Check-out: {{ date('M j, Y, g:i A', strtotime($trip->accommodation->check_out )) }}</li>
                 </ul>
                 <div class="mt-4">
                     <a href="/storage/pdfs/hotel_reservation.pdf" target="_blank"
