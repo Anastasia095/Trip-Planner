@@ -1,4 +1,4 @@
-# 🌍 Trip Planner
+# 🌲🏕️🚙 Trip Planner
 
 A fun personal project to practice **Laravel** and **Tailwind CSS** while building a minimal trip planning app.
 
