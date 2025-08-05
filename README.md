@@ -2,7 +2,7 @@
 
 A fun personal project to practice **Laravel** and **Tailwind CSS** while building a minimal trip planning app.
 
-## ✨ About
+##  About
 
 Trip Planner is a lightweight web application for creating and organizing travel plans. It allows users to create trips, associate them with flights, accommodations, and directions, and display them with a stylish UI featuring Tailwind CSS. This project is built for learning purposes, focusing on Laravel's Blade templating and Tailwind CSS without JavaScript frameworks like React.
 
@@ -29,7 +29,7 @@ This is not intended for production use—just a playground for experimenting wi
 - View trip details with embedded Google Maps for directions.
 - Minimal design using Blade templates and Tailwind CSS, no JavaScript frameworks.
 
-## 🚀 Setup
+##  Setup
 
 ### Prerequisites
 - PHP >= 8.0
