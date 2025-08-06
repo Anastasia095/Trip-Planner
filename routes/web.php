@@ -3,13 +3,18 @@
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
+use App\Http\Controllers\TripController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::view('dashboard', 'dashboard')
+Route::get('/trips/new', [TripController::class, 'new'])->name('trips.new');
+Route::post('/trips/create', [TripController::class, 'create'])->name('trips.create');
+Route::get('/trips/{trip}', [TripController::class, 'show'])->name('trips.show');
+
+Route::get('/dashboard', [TripController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
@@ -21,4 +26,4 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
