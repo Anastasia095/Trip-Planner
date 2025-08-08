@@ -132,4 +132,12 @@ class TripController extends Controller
         $fuel = $trip->directions->distance / $trip->directions->vehicle_mpg;
         return view('trips.show', compact('trip', 'fuel'));
     }
+
+    public function delete($id)
+    {
+        $trip = Trip::findOrFail($id);
+        $trip->delete();
+
+        return redirect()->route('dashboard')->with('success', 'Trip deleted successfully.');
+    }
 }

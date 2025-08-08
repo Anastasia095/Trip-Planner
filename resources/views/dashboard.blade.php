@@ -53,7 +53,7 @@
                                 <li><strong>{{ $trip->title }}</strong></li>
                             </ul>
                             <a href="{{ route('trips.show', $trip->id) }}"
-                                class="mt-4 inline-block bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900 px-4 py-2 rounded-lg shadow transform transition-transform duration-200 hover:scale-105 hover:bg-gray-800 dark:hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                                class="mt-4 mx-3  inline-block bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900 px-4 py-2 rounded-lg shadow transform transition-transform duration-200 hover:scale-105 hover:bg-gray-800 dark:hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
                                 aria-label="View details for {{ $trip->title }}">
                                 View Trip Details
                             </a>

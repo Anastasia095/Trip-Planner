@@ -123,9 +123,17 @@
                         </a>
                     </div>
                 </section>
+                <div class="flex justify-center">
+                    <a href="{{ route('trips.delete', $trip->id) }}"
+                        class="inline-block bg-red-600 text-white dark:bg-red-700 dark:text-white px-4 py-2 rounded-lg shadow hover:bg-red-800 dark:hover:bg-red-800 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 max-w-xs text-center">
+                        Delete Trip
+                    </a>
+                </div>
+
+
+
             </main>
         </div>
-
     </div>
 
     @push('scripts')

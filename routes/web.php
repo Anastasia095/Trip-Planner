@@ -11,6 +11,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/trips/new', [TripController::class, 'new'])->name('trips.new');
+Route::get('/trips/delete/{trip}', [TripController::class, 'delete'])->name('trips.delete');
 Route::post('/trips/create', [TripController::class, 'create'])->name('trips.create');
 Route::get('/trips/{trip}', [TripController::class, 'show'])->name('trips.show');
 
