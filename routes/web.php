@@ -27,4 +27,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
 });
 
+Route::post('upload', App\Http\Controllers\UploadController::class)->name('upload');
+
 require __DIR__ . '/auth.php';

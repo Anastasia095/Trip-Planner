@@ -2,7 +2,8 @@
     <div class="w-full">
         <div class="mx-100 flex flex-col justify-center">
             <!-- Logo for Mobile -->
-            <a href="{{ route('home') }}" class="z-20 flex flex-col items-center gap-2 font-medium lg:hidden" wire:navigate>
+            <a href="{{ route('home') }}" class="z-20 flex flex-col items-center gap-2 font-medium lg:hidden"
+                wire:navigate>
                 <span class="flex h-9 w-9 items-center justify-center">
                     <x-app-logo-icon class="size-9 fill-current text-black dark:text-white" />
                 </span>
@@ -28,106 +29,63 @@
                     <flux:heading size="lg" id="create-trip-heading" class="mb-4">
                         Plan Your Trip
                     </flux:heading>
-                    <form method="POST" action="{{ route('trips.create') }}" class="space-y-6">
+                    <form method="POST" action="{{ route('trips.create') }}" enctype="multipart/form-data"
+                        class="space-y-6">
                         @csrf
 
-                        <flux:input
-                            name="title"
-                            wire:model.lazy="title"
-                            :label="__('Trip Title')"
-                            required />
+                        <flux:input name="title" wire:model.lazy="title" :label="__('Trip Title')" required />
 
                         <flux:heading size="md" class="mt-6">Driving Directions</flux:heading>
 
-                        <flux:input
-                            name="origin"
-                            wire:model.lazy="origin"
-                            :label="__('Origin')"
+                        <flux:input name="origin" wire:model.lazy="origin" :label="__('Origin')" required />
+
+                        <flux:input name="destination" wire:model.lazy="destination" :label="__('Destination')"
                             required />
 
-                        <flux:input
-                            name="destination"
-                            wire:model.lazy="destination"
-                            :label="__('Destination')"
-                            required />
-
-                        <flux:input
-                            name="vehicle_mpg"
-                            wire:model.lazy="vehicle_mpg"
-                            :label="__('Vehicle MPG')"
-                            type="number"
-                            step="0.1"
-                            required />
+                        <flux:input name="vehicle_mpg" wire:model.lazy="vehicle_mpg" :label="__('Vehicle MPG')"
+                            type="number" step="0.1" required />
 
                         <flux:heading size="md" class="mt-6">Flight Information</flux:heading>
 
-                        <flux:input
-                            name="departure"
-                            wire:model.lazy="departure"
-                            :label="__('Departure Airport')"
+                        <flux:input name="departure" wire:model.lazy="departure" :label="__('Departure Airport')"
                             required />
 
-                        <flux:input
-                            name="arrival"
-                            wire:model.lazy="arrival"
-                            :label="__('Arrival Airport')"
+                        <flux:input name="arrival" wire:model.lazy="arrival" :label="__('Arrival Airport')" required />
+
+                        <flux:input name="airline" wire:model.lazy="airline" :label="__('Airline')" required />
+
+                        <flux:input name="flight_number" wire:model.lazy="flight_number" :label="__('Flight Number')"
                             required />
 
-                        <flux:input
-                            name="airline"
-                            wire:model.lazy="airline"
-                            :label="__('Airline')"
-                            required />
+                        <flux:input id="departure_time" name="departure_time" wire:model.lazy="departure_time"
+                            :label="__('Departure Time')" type="datetime-local" required />
 
-                        <flux:input
-                            name="flight_number"
-                            wire:model.lazy="flight_number"
-                            :label="__('Flight Number')"
-                            required />
 
-                        <flux:input
-                            id="departure_time"
-                            name="departure_time"
-                            wire:model.lazy="departure_time"
-                            :label="__('Departure Time')"
-                            type="datetime-local"
-                            required />
+                        <flux:input id="arrival_time" name="arrival_time" wire:model.lazy="arrival_time"
+                            :label="__('Arrival Time')" type="datetime-local" required />
 
-                        <flux:input
-                            id="arrival_time"
-                            name="arrival_time"
-                            wire:model.lazy="arrival_time"
-                            :label="__('Arrival Time')"
-                            type="datetime-local"
-                            required />
+                        {{-- PDF Upload --}}
+                        <flux:heading size="md" class="mt-6">Flight Document</flux:heading>
+
+                        <input type="file" name="file" accept="application/pdf"
+                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer 
+           bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-neutral-800 dark:border-gray-600 
+           dark:placeholder-gray-400"
+                            required>
+
 
                         <flux:heading size="md" class="mt-6">Accommodation</flux:heading>
 
-                        <flux:input
-                            name="hotel_name"
-                            wire:model.lazy="hotel_name"
-                            :label="__('Hotel Name')"
+                        <flux:input name="hotel_name" wire:model.lazy="hotel_name" :label="__('Hotel Name')"
                             required />
 
-                        <flux:input
-                            name="address"
-                            wire:model.lazy="address"
-                            :label="__('Address')"
-                            required />
+                        <flux:input name="address" wire:model.lazy="address" :label="__('Address')" required />
 
-                        <flux:input
-                            name="check_in"
-                            wire:model.lazy="check_in"
-                            :label="__('Check-In Date')"
-                            type="date"
-                            required />
+                        <flux:input name="check_in" wire:model.lazy="check_in" :label="__('Check-In Date')"
+                            type="date" required />
 
-                        <flux:input
-                            name="check_out"
-                            wire:model.lazy="check_out"
-                            :label="__('Check-Out Date')"
-                            type="date"
-                            required />
+                        <flux:input name="check_out" wire:model.lazy="check_out" :label="__('Check-Out Date')"
+                            type="date" required />
 
                         <div class="flex justify-end">
                             <flux:button type="submit" variant="primary">

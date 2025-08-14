@@ -8,6 +8,8 @@ use App\Models\Accommodation;
 use App\Models\Directions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use App\Services\FileUploader;
+use Illuminate\Support\Facades\Storage;
 
 
 class TripController extends Controller
@@ -23,7 +25,7 @@ class TripController extends Controller
         return view('trips.create');
     }
 
-    public function create(Request $request)
+    public function create(Request $request, FileUploader $uploader)
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
@@ -39,7 +41,8 @@ class TripController extends Controller
             'hotel_name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'check_in' => 'required|date',
-            'check_out' => 'required|date|after_or_equal:check_in'
+            'check_out' => 'required|date|after_or_equal:check_in',
+            'file' => 'nullable|file|mimes:pdf|max:5120',
         ]);
 
 
@@ -78,6 +81,17 @@ class TripController extends Controller
         if (!$directions) {
             dd("trip failed to save");
         }
+
+        $fileUrl = null;
+
+        if ($request->hasFile('file')) {
+            $media = $uploader->uploadAndSave($request->file('file'), 'flight-documents');
+
+            $fileUrl = '/storage/' . $media->path;
+            // dd($fileUrl);
+        }
+
+
         $flight = Flight::create([
             'departure' => $validated['departure'],
             'arrival' => $validated['arrival'],
@@ -85,6 +99,7 @@ class TripController extends Controller
             'flight_number' => $validated['flight_number'],
             'departure_time' => $validated['departure_time'],
             'arrival_time' => $validated['arrival_time'],
+            'itinerary_pdf' => $fileUrl,
         ]);
         if (!$flight) {
             dd("trip failed to save");
@@ -122,7 +137,7 @@ class TripController extends Controller
             dd("trip failed to save");
         }
 
-        return redirect()->route('trips.index')->with('success', 'Trip created successfully!');
+        return redirect()->route('dashboard')->with('success', 'Trip created successfully!');
     }
 
 

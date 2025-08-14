@@ -13,6 +13,7 @@ class Flight extends Model
         'flight_number',
         'departure_time',
         'arrival_time',
+        'itinerary_pdf'
     ];
 
     public function trip()
