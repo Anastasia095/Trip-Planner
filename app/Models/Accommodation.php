@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Accommodation extends Model
 {
     protected $fillable = [
+        'trip_id',
         'hotel_name',
         'address',
         'check_in',
@@ -20,6 +21,6 @@ class Accommodation extends Model
 
     public function trip()
     {
-        return $this->hasOne(Trip::class);
+        return $this->belongsTo(Trip::class);
     }
 }

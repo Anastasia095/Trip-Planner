@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Directions extends Model
 {
     protected $fillable = [
+        'trip_id',
         'origin',
         'destination',
         'distance',
@@ -16,6 +17,6 @@ class Directions extends Model
 
     public function trip()
     {
-        return $this->hasOne(Trip::class);
+        return $this->belongsTo(Trip::class);
     }
 }

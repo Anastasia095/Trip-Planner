@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('directions', function (Blueprint $table) {
+        Schema::create('trips', function (Blueprint $table) {
             $table->id();
-            $table->string('origin');
-            $table->string('destination');
-            $table->float('distance');
-            $table->float('vehicle_mpg')->nullable();
-            $table->string('travel_time')->nullable(); // e.g., "6 hours 30 minutes"
+            $table->string('title');
+            $table->string('image_url');
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('directions');
+        Schema::dropIfExists('trips');
     }
 };

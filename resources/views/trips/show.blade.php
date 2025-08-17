@@ -69,55 +69,54 @@
                         </div>
                     </div>
                 </section>
+                @if (!empty($trip->flight->departure))
+                    <section aria-labelledby="flight-heading" class="space-y-4">
+                        <h2 id="flight-heading"
+                            class="text-xl font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2">
+                            <i class="fa-solid fa-plane"></i> Flight Itinerary
+                        </h2>
 
-                <section aria-labelledby="flight-heading" class="space-y-4">
-                    <h2 id="flight-heading"
-                        class="text-xl font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2">
-                        <i class="fa-solid fa-plane"></i> Flight Itinerary
-                    </h2>
+                        <div class="pl-6">
+                            <strong>Departure:</strong> {{ $trip->flight->departure }}<br />
+                            <strong>Arrival:</strong> {{ $trip->flight->arrival }}<br />
+                            <strong>Airline:</strong> {{ $trip->flight->airline }}<br />
+                            <strong>Flight Number:</strong> {{ $trip->flight->flight_number }}<br />
+                            <strong>Departure Time:</strong>
+                            {{ date('M j, Y, g:i A', strtotime($trip->flight->departure_time)) }}<br />
+                            <strong>Arrival Time:</strong>
+                            {{ date('M j, Y, g:i A', strtotime($trip->flight->arrival_time)) }}<br />
+                        </div>
 
-                    <div class="pl-6">
-                        <strong>Departure:</strong> {{ $trip->flight->departure }}<br />
-                        <strong>Arrival:</strong> {{ $trip->flight->arrival }}<br />
-                        <strong>Airline:</strong> {{ $trip->flight->airline }}<br />
-                        <strong>Flight Number:</strong> {{ $trip->flight->flight_number }}<br />
-                        <strong>Departure Time:</strong>
-                        {{ date('M j, Y, g:i A', strtotime($trip->flight->departure_time)) }}<br />
-                        <strong>Arrival Time:</strong>
-                        {{ date('M j, Y, g:i A', strtotime($trip->flight->arrival_time)) }}<br />
-                    </div>
-
-                    <div class="text-right">
-                        <a href="{{ $trip->flight->itinerary_pdf }}" target="_blank"
-                            class="inline-block bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900 px-4 py-2 rounded-lg shadow hover:bg-gray-800 dark:hover:bg-gray-200 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-                            View Flight Ticket PDF
-                        </a>
-                    </div>
-                </section>
-
+                        <div class="text-right">
+                            <a href="{{ $trip->flight->itinerary_pdf }}" target="_blank"
+                                class="inline-block bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900 px-4 py-2 rounded-lg shadow hover:bg-gray-800 dark:hover:bg-gray-200 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                                View Flight Ticket PDF
+                            </a>
+                        </div>
+                    </section>
+                @endif
 
                 <section aria-labelledby="accommodation-heading" class="space-y-4">
                     <h2 id="accommodation-heading"
                         class="text-xl font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2">
                         <i class="fa-solid fa-hotel"></i> Accommodations
                     </h2>
-
-                    <div class="pl-6">
-                        <strong>Hotel:</strong> {{ $trip->accommodation->hotel_name }}<br />
-
-                        <strong>Address:</strong>
-                        <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($trip->accommodation->address) }}"
-                            target="_blank" rel="noopener noreferrer"
-                            class="text-blue-600 dark:text-blue-400 hover:underline">
-                            {{ $trip->accommodation->address }}
-                        </a>
-                        <br />
-                        <strong>Check-in:</strong>
-                        {{ date('M j, Y, g:i A', strtotime($trip->accommodation->check_in)) }}<br />
-                        <strong>Check-out:</strong>
-                        {{ date('M j, Y, g:i A', strtotime($trip->accommodation->check_out)) }}<br />
-                    </div>
-
+                    @foreach ($trip->accommodation as $item)
+                        <div class="pl-6">
+                            <strong>Hotel:</strong> {{ $item->hotel_name }}<br>
+                            <strong>Address:</strong>
+                            <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($item->address) }}"
+                                target="_blank" rel="noopener noreferrer"
+                                class="text-blue-600 dark:text-blue-400 hover:underline">
+                                {{ $item->address }}
+                            </a>
+                            <br />
+                            <strong>Check-in:</strong>
+                            {{ date('M j, Y, g:i A', strtotime($item->check_in)) }}<br />
+                            <strong>Check-out:</strong>
+                            {{ date('M j, Y, g:i A', strtotime($item->check_out)) }}<br />
+                        </div>
+                    @endforeach
                     <div class="text-right">
                         <a href="/storage/pdfs/hotel_reservation.pdf" target="_blank"
                             class="inline-block bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900 px-4 py-2 rounded-lg shadow hover:bg-gray-800 dark:hover:bg-gray-200 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">

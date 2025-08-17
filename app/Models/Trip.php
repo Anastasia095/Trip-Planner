@@ -3,23 +3,30 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
+use App\Models\Flight;
+use App\Models\Accommodation;
+use App\Models\Directions;
+
 
 class Trip extends Model
 {
-    protected $fillable = ['title', 'flight_id', 'accommodation_id', 'directions_id', 'image_url'];
+    protected $fillable = ['title', 'image_url'];
 
-    public function flight()
+    public function flight(): HasMany
     {
-        return $this->belongsTo(Flight::class);
+        return $this->hasMany(Flight::class);
     }
 
-    public function accommodation()
+    public function accommodation(): HasMany
     {
-        return $this->belongsTo(Accommodation::class);
+        return $this->hasMany(Accommodation::class);
     }
 
-    public function directions()
+    public function directions(): HasOne
     {
-        return $this->belongsTo(Directions::class);
+        return $this->hasOne(Directions::class);
     }
 }

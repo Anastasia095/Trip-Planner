@@ -31,7 +31,8 @@ class TripController extends Controller
             'title' => 'required|string|max:255',
             'origin' => 'required|string|max:255',
             'destination' => 'required|string|max:255',
-            'vehicle_mpg' => 'required|numeric|min:1',
+            'vehicle_mpg' => 'numeric|min:1',
+
             'departure' => 'required|string|max:255',
             'arrival' => 'required|string|max:255',
             'airline' => 'required|string|max:255',
@@ -45,7 +46,27 @@ class TripController extends Controller
             'file' => 'nullable|file|mimes:pdf|max:5120',
         ]);
 
+        //just for decoration purposes
+        $imageUrls = [
+            "https://www.pinkadventuretours.com/Media/3120/roaring-fork-motor-trail-fall-cabin-600x400.jpg",
+            "https://cdn2.smokymountains.com/uploads/2020/08/leaf-peeping-scenic-drive_731x419_acf_cropped.jpg",
+            "https://wildlandtrekking.com/content/webp-express/webp-images/doc-root/content/uploads/2020/11/smokies-bg.jpg.webp",
+            "https://www.myinnontheriver.com/media/66a83b56c0213bb358b642b0/xlarge.webp",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5WUCkPjG1y6MNp22n5st6maCuArGYXsvQmw&s",
+        ];
 
+        $image_url = $imageUrls[array_rand($imageUrls)];
+        // dd($image_url);
+
+
+        $trip = Trip::create([
+            'title' => $validated['title'],
+            'image_url' => $image_url
+        ]);
+
+        if (!$trip) {
+            dd("trip failed to save");
+        }
 
         $apiKey = config('services.google_maps.key');
 
@@ -72,6 +93,7 @@ class TripController extends Controller
             $duration = $route['duration'] ?? 0;
         }
         $directions = Directions::create([
+            'trip_id' => $trip->id,
             'origin' => $validated['origin'],
             'destination' => $validated['destination'],
             'distance' => $distance,
@@ -93,6 +115,7 @@ class TripController extends Controller
 
 
         $flight = Flight::create([
+            'trip_id' => $trip->id,
             'departure' => $validated['departure'],
             'arrival' => $validated['arrival'],
             'airline' => $validated['airline'],
@@ -105,6 +128,7 @@ class TripController extends Controller
             dd("trip failed to save");
         }
         $accommodation = Accommodation::create([
+            'trip_id' => $trip->id,
             'hotel_name' => $validated['hotel_name'],
             'address' => $validated['address'],
             'check_in' => $validated['check_in'],
@@ -114,37 +138,16 @@ class TripController extends Controller
             dd("trip failed to save");
         }
 
-        //just for decoration purposes
-        $imageUrls = [
-            "https://www.pinkadventuretours.com/Media/3120/roaring-fork-motor-trail-fall-cabin-600x400.jpg",
-            "https://cdn2.smokymountains.com/uploads/2020/08/leaf-peeping-scenic-drive_731x419_acf_cropped.jpg",
-            "https://wildlandtrekking.com/content/webp-express/webp-images/doc-root/content/uploads/2020/11/smokies-bg.jpg.webp",
-            "https://www.myinnontheriver.com/media/66a83b56c0213bb358b642b0/xlarge.webp",
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5WUCkPjG1y6MNp22n5st6maCuArGYXsvQmw&s",
-        ];
-
-        $image_url = $imageUrls[array_rand($imageUrls)];
-        // dd($image_url);
-        $trip = Trip::create([
-            'title' => $validated['title'],
-            'flight_id' => $flight->id,
-            'accommodation_id' => $accommodation->id,
-            'directions_id' => $directions->id,
-            'image_url' => $image_url
-        ]);
-
-        if (!$trip) {
-            dd("trip failed to save");
-        }
-
         return redirect()->route('dashboard')->with('success', 'Trip created successfully!');
     }
 
 
     public function show($id)
     {
-        $trip = Trip::findOrFail($id);
+        $trip = Trip::with(['flight', 'accommodation', 'directions'])->findOrFail($id);
+
         $fuel = $trip->directions->distance / $trip->directions->vehicle_mpg;
+
         return view('trips.show', compact('trip', 'fuel'));
     }
 

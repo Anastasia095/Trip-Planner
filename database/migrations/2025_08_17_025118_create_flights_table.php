@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('flights', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('trip_id')->nullable()->constrained()->onDelete('set null');
             $table->string('departure');
             $table->string('arrival');
             $table->string('airline');

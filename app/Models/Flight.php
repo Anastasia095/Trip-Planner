@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Flight extends Model
 {
     protected $fillable = [
+        'trip_id',
         'departure',
         'arrival',
         'airline',
@@ -18,6 +19,6 @@ class Flight extends Model
 
     public function trip()
     {
-        return $this->hasOne(Trip::class);
+        return $this->belongsTo(Trip::class);
     }
 }
