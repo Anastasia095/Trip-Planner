@@ -9,7 +9,6 @@ use App\Models\Directions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Services\FileUploader;
-use Illuminate\Support\Facades\Storage;
 
 
 class TripController extends Controller
@@ -22,7 +21,7 @@ class TripController extends Controller
 
     public function new()
     {
-        return view('trips.create');
+        return view('trips.new');
     }
 
     public function create(Request $request, FileUploader $uploader)
@@ -32,18 +31,6 @@ class TripController extends Controller
             'origin' => 'required|string|max:255',
             'destination' => 'required|string|max:255',
             'vehicle_mpg' => 'numeric|min:1',
-
-            'departure' => 'required|string|max:255',
-            'arrival' => 'required|string|max:255',
-            'airline' => 'required|string|max:255',
-            'flight_number' => 'required|string|max:255',
-            'departure_time' => 'required|date',
-            'arrival_time' => 'required|date|after_or_equal:departure_time',
-            'hotel_name' => 'required|string|max:255',
-            'address' => 'required|string|max:255',
-            'check_in' => 'required|date',
-            'check_out' => 'required|date|after_or_equal:check_in',
-            'file' => 'nullable|file|mimes:pdf|max:5120',
         ]);
 
         //just for decoration purposes
@@ -111,31 +98,6 @@ class TripController extends Controller
 
             $fileUrl = '/storage/' . $media->path;
             // dd($fileUrl);
-        }
-
-
-        $flight = Flight::create([
-            'trip_id' => $trip->id,
-            'departure' => $validated['departure'],
-            'arrival' => $validated['arrival'],
-            'airline' => $validated['airline'],
-            'flight_number' => $validated['flight_number'],
-            'departure_time' => $validated['departure_time'],
-            'arrival_time' => $validated['arrival_time'],
-            'itinerary_pdf' => $fileUrl,
-        ]);
-        if (!$flight) {
-            dd("trip failed to save");
-        }
-        $accommodation = Accommodation::create([
-            'trip_id' => $trip->id,
-            'hotel_name' => $validated['hotel_name'],
-            'address' => $validated['address'],
-            'check_in' => $validated['check_in'],
-            'check_out' => $validated['check_out'],
-        ]);
-        if (!$accommodation) {
-            dd("trip failed to save");
         }
 
         return redirect()->route('dashboard')->with('success', 'Trip created successfully!');
